@@ -1,0 +1,9 @@
+{
+  "watch": ["api"],
+  "ext": "ts,js,json",
+  "ignore": ["api/**/*.test.ts"],
+  "exec": "tsx api/server.ts",
+  "env": {
+    "NODE_ENV": "development"
+  }
+}
