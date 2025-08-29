@@ -121,3 +121,6 @@ playwright/.cache/
 # Deployment guide (contains sensitive configuration)
 DEPLOY_GUIDE.md
 TASK.md
+
+# Trae IDE configuration
+.trae/
