@@ -381,7 +381,7 @@ export async function testCommonComponents(): Promise<void> {
       userRole: 'admin',
       action: '创建用户',
       description: '测试创建用户操作',
-      ipAddress: '127.0.0.1',
+      ipAddress: process.env.NODE_ENV === 'production' ? '47.106.198.192' : '127.0.0.1',
       userAgent: 'Test Agent',
       requestMethod: 'POST',
       requestUrl: '/api/users',

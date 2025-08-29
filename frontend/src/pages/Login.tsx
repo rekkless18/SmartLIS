@@ -7,6 +7,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../stores/auth';
+import http from '../lib/http';
 
 /**
  * 登录页面组件
@@ -97,41 +98,15 @@ const Login: React.FC = () => {
       console.log('Request body:', requestBody);
       
       // 调用后端登录API
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody)
-      });
+      const response = await http.post('/auth/login', requestBody);
       
       console.log('Login API response status:', response.status);
-      console.log('Response headers:', response.headers.get('content-type'));
+      console.log('Login API response data:', response.data);
       
-      // 检查响应内容类型
-      const contentType = response.headers.get('content-type');
-      if (!contentType || !contentType.includes('application/json')) {
-        console.error('Response is not JSON:', contentType);
-        const textResponse = await response.text();
-        console.error('Response text:', textResponse);
-        alert('服务器响应格式错误，请联系管理员');
-        return;
-      }
-      
-      let data;
-      try {
-        data = await response.json();
-      } catch (parseError) {
-        console.error('Failed to parse response:', parseError);
-        const textResponse = await response.text();
-        console.error('Response text:', textResponse);
-        alert('服务器响应解析失败，请重试');
-        return;
-      }
-      console.log('Login API response data:', data);
+      const data = response.data;
       
       // 检查响应是否成功（后端返回格式：{success: boolean, message: string, data: {...}}）
-      if (!response.ok || data.success === false) {
+      if (data.success === false) {
         console.error('Login failed:', data);
         // 统一密码错误提示信息
         const errorMessage = data.message === '用户名或密码错误' || 

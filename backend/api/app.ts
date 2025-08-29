@@ -51,9 +51,11 @@ app.use(helmet({
 
 // CORS配置
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-domain.com'] // 生产环境域名
-    : ['http://localhost:5000', 'http://localhost:3000'], // 开发环境
+  origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : [
+    process.env.NODE_ENV === 'production' 
+      ? 'https://your-domain.com' // 生产环境域名
+      : 'http://localhost:5000' // 开发环境
+  ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']

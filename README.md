@@ -101,16 +101,44 @@ pnpm install
 
 ### 环境配置
 
-1. 复制环境变量文件：
+1. **复制环境变量文件：**
 ```bash
 # 后端环境变量
 cp backend/.env.example backend/.env
 
 # 前端环境变量
 cp frontend/.env.example frontend/.env
+
+# 或者使用根目录的统一配置文件
+cp .env.example .env
 ```
 
-2. 配置数据库连接和其他环境变量
+2. **配置环境变量：**
+
+**开发环境配置：**
+- 前端服务：`http://localhost:5000`
+- 后端服务：`http://localhost:3000`
+- API地址：`http://localhost:3000/api`
+
+**生产环境配置：**
+- 服务器IP：`47.106.198.192`
+- 前端端口：`5000`
+- 后端端口：`3000`
+- CORS配置：需要包含前端域名
+
+**必需的环境变量：**
+```bash
+# Supabase数据库配置
+SUPABASE_URL=your_supabase_project_url
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+SUPABASE_ANON_KEY=your_supabase_anon_key
+
+# JWT认证配置
+JWT_SECRET=your_jwt_secret_key
+
+# Redis缓存配置（可选）
+REDIS_URL=redis://localhost:6379
+```
 
 ### 启动开发服务器
 
