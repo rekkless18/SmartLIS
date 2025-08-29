@@ -4,6 +4,9 @@
   "description": "SmartLis智能实验室管理系统后端服务",
   "main": "api/index.ts",
   "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "dev": "nodemon api/server.ts",
     "build": "tsc",

@@ -114,3 +114,8 @@ temp/
 test-results/
 playwright-report/
 playwright/.cache/
+
+#Personal
+
+# Deployment guide (contains sensitive configuration)
+DEPLOY_GUIDE.md

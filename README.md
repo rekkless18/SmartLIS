@@ -90,8 +90,8 @@ smartlis/
 
 ```bash
 # 克隆项目
-git clone https://github.com/your-org/smartlis.git
-cd smartlis
+git clone https://github.com/rekkless18/SmartLIS.git
+cd SmartLIS
 
 # 安装所有依赖
 npm run install:all
@@ -174,6 +174,87 @@ npm run lint:fix
 - **Express 配置**：`backend/api/app.ts`
 - **数据库配置**：`backend/api/config/database.ts`
 - **TypeScript 配置**：`backend/tsconfig.json`
+
+## 🐳 Docker 部署
+
+### 快速部署
+
+1. **构建 Docker 镜像**
+```bash
+# 构建镜像
+docker build -t smartlis .
+```
+
+2. **运行容器**
+```bash
+# 运行容器（映射端口 3000 和 5000）
+docker run -p 3000:3000 -p 5000:5000 smartlis
+```
+
+3. **使用 pnpm 脚本**
+```bash
+# 构建镜像
+pnpm run docker:build
+
+# 运行容器
+pnpm run docker:run
+```
+
+### 环境变量配置
+
+创建 `.env` 文件并配置以下环境变量：
+```bash
+# 数据库配置
+SUPABASE_URL=your_supabase_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
+
+# JWT 配置
+JWT_SECRET=your_jwt_secret
+
+# 环境配置
+NODE_ENV=production
+PORT=3000
+```
+
+### Docker Compose 部署（推荐）
+
+创建 `docker-compose.yml` 文件：
+```yaml
+version: '3.8'
+services:
+  smartlis:
+    build: .
+    ports:
+      - "3000:3000"
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    env_file:
+      - .env
+    restart: unless-stopped
+```
+
+运行命令：
+```bash
+# 启动服务
+docker-compose up -d
+
+# 查看日志
+docker-compose logs -f
+
+# 停止服务
+docker-compose down
+```
+
+### 部署检查清单
+
+- [ ] 环境变量已正确配置
+- [ ] 数据库连接正常
+- [ ] 前端构建成功
+- [ ] 后端 API 正常响应
+- [ ] 容器端口映射正确
+- [ ] 日志输出正常
 
 ## 📖 API 文档
 
